@@ -1,0 +1,3 @@
+# MyDataBase
+Java实现的以txt文件作为存储的数据库，支持单句select，update，delete，暂不支持嵌套查询
+基本结构:DBclient输入SQL语句，通过socket发送给DBserver，DBserver把客户端的传过来的SQL语句先使用SQL语法解析器解析（ProcessSQLStatement包）成一个SQLObject对象，再根据SQLObject的属性值判断其操作，通过FileIO类完成文件查询和修改操作。
