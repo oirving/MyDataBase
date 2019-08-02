@@ -14,9 +14,6 @@ public class FileIO {
      *      * @throws IOException
      *     
      */
-    public static void main(String[] args) {
-        updateAgeByAge("21","22");
-    }
     //更新名字
     public static void updateNameByName(String exName, String newName) {
         FileInputStream fileInputStream = null;
