@@ -5,12 +5,6 @@ import com.oracle.tools.packager.Log;
 import java.io.*;
 
 public class Table {
-    public static void main(String[] args) {
-        if (isExist("UserInfo")) {
-            System.out.println("表存在");
-        }
-    }
-
     public static Boolean isExist (String tableName) {
         FileInputStream fileInputStream = null;
         InputStreamReader inputStreamReader = null;

@@ -14,6 +14,9 @@ public class FileIO {
      *      * @throws IOException
      *     
      */
+    public static void main(String[] args) {
+        updateAgeByAge("21","22");
+    }
     //更新名字
     public static void updateNameByName(String exName, String newName) {
         FileInputStream fileInputStream = null;
@@ -36,7 +39,6 @@ public class FileIO {
                     splits[0] = newName;
                 }
                 String returnInfo = splits[0] + "&" + splits[1] + "\n";
-                System.out.println("&&"+returnInfo);
                 bufferedWriter.write(returnInfo);
             }
             bufferedWriter.flush();
@@ -74,7 +76,6 @@ public class FileIO {
                     splits[1] = age;
                 }
                 String returnInfo = splits[0] + "&" + splits[1] + "\n";
-                System.out.println("&&"+returnInfo);
                 bufferedWriter.write(returnInfo);
             }
             bufferedWriter.flush();
@@ -108,11 +109,10 @@ public class FileIO {
             bufferedWriter = new BufferedWriter(outputStreamWriter); //输出缓冲
             while ((line = bufferedReader.readLine()) != null) {
                 String[] splits = line.split("&");
-                if (splits[1].equals(age)) {
+                if (splits[1].equals(exAge)) {
                     splits[1] = age;
                 }
                 String returnInfo = splits[0] + "&" + splits[1] + "\n";
-                System.out.println("&&"+returnInfo);
                 bufferedWriter.write(returnInfo);
             }
             bufferedWriter.flush();
@@ -150,7 +150,6 @@ public class FileIO {
                     splits[0] = name;
                 }
                 String returnInfo = splits[0] + "&" + splits[1] + "\n";
-                System.out.println("&&"+returnInfo);
                 bufferedWriter.write(returnInfo);
             }
             bufferedWriter.flush();

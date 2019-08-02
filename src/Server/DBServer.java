@@ -9,6 +9,8 @@ import com.oracle.tools.packager.Log;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.regex.Matcher;
@@ -54,8 +56,13 @@ public class DBServer {
                             attribute = conditions[1];
                             value = conditions[2];
                         }
-                        switch (sqlObjectObj.getTypeName()){//从操作入手
-                            case "select" :
+                        Map<String,Integer> operateType = new HashMap<String,Integer>();
+                        operateType.put("select",1);
+                        operateType.put("delete",2);
+                        operateType.put("update",3);
+                        switch (operateType.get(sqlObjectObj.getTypeName())){//从操作入手
+
+                            case 1 :
                                 if (conditions.length > 1) { //存在查询条件
                                     switch (attribute) {
                                         case "name" : //按名字查询
@@ -116,7 +123,8 @@ public class DBServer {
                                             break;
                                     }
                                 }
-                            case "update" :
+                                break;
+                            case 3 :
                                 String[] fields = DeclearField(sqlObjectObj.getField());
                                 if (conditions.length > 1) { //存在查询条件
                                         if (attribute.equals("name")) {//按名字更新
@@ -125,11 +133,11 @@ public class DBServer {
                                                     switch (fields[i]) {
                                                         case "name":
                                                             FileIO.updateNameByName(value,fields[i+1]);
-                                                            System.out.println("updateNameByName"+attribute);
+                                                            System.out.println(value+"**"+fields[i+1]);
                                                             break;
                                                         case "age":
                                                             FileIO.updateAgeByName(value,fields[i+1]);
-                                                            System.out.println("updateAgeByName"+attribute);
+                                                            System.out.println(value+"**"+fields[i+1]);
                                                             break;
                                                     }
                                                 }
@@ -141,18 +149,20 @@ public class DBServer {
                                                 switch (fields[i]) {
                                                     case "name":
                                                         FileIO.updateNameByAge(fields[i+1],value);
-                                                        System.out.println("updateNameByAge"+attribute);
+                                                        System.out.println(value+"**"+fields[i+1]);
                                                         break;
                                                     case "age":
                                                         FileIO.updateAgeByAge(value,fields[i+1]);
-                                                        System.out.println("updateAgeByAge"+attribute);
+                                                        System.out.println(value+"**"+fields[i+1]);
                                                         break;
                                                 }
                                             }
                                         }
                                     }
                                     }
-                            case "delete" :
+                                break;
+                            case 2 :
+                                System.out.println("delete");
                                 if (conditions.length > 1) { //存在查询条件
                                     switch (attribute) {
                                         case "age" :
@@ -163,6 +173,7 @@ public class DBServer {
                                             break;
                                     }
                                 }
+                                break;
                         }
                         for (int i = 0; i<retUserInfo.length ; i++) {
                             System.out.println(retUserInfo[i]);
