@@ -186,6 +186,14 @@ public class DBServer {
                     outputStream.close();
                     socket.close();
                 } catch (Exception e) {
+                    try {
+                        OutputStream outputStream = socket.getOutputStream();
+                        outputStream.write("输入语句不合法！".getBytes("UTF-8"));
+                        outputStream.close();
+                        socket.close();
+                    } catch (IOException ex) {
+                        ex.printStackTrace();
+                    }
                     e.printStackTrace();
                     System.out.println("查询失败！");
                 }
